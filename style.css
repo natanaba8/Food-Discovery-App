@@ -65,7 +65,6 @@ form button {
   box-sizing: border-box;
 }
 
-/* Recipe / show image */
 .article img {
   display: block;
   width: 100%;
@@ -75,7 +74,6 @@ form button {
   background-color: #e5e7eb;
 }
 
-/* Text area */
 .main-content {
   padding: 12px 55px 5px 4px;
 }
@@ -84,33 +82,28 @@ form button {
   margin: 5px 0;
 }
 
-/* Name */
 .main-content .name {
   font-size: 20px;
   font-weight: 700;
   color: #222;
 }
 
-/* Cuisine */
 .main-content .cuisine {
   font-size: 14px;
   color: #666;
 }
 
-/* Difficulty */
 .main-content .difficulty {
   font-size: 14px;
   color: #666;
 }
 
-/* Rating */
 .main-content .rate {
   font-size: 14px;
   color: #f59e0b;
   font-weight: 600;
 }
 
-/* Favorite button */
 .favorite-btn {
   position: absolute;
   right: 18px;
@@ -138,4 +131,18 @@ form button {
 .favorite-btn:hover {
   transform: scale(1.08);
   background-color: #1d4ed8;
+}
+@media (min-width: 560px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  form {
+    width: 50%;
+    justify-content: center;
+  }
 }

@@ -8,76 +8,77 @@ const form = document.querySelector(".search-form");
 const searchInput = document.querySelector("#searchInput");
 const favoritebtn = document.querySelector("#header-button");
 
+const state = {
+  recipes: [],
+  favorites: [],
+  search: "",
+};
 
-    const state = { 
-        recipes: [], 
-        favorites: [], 
-        search: "" 
-    }; 
-
-
-function loadfavorite(){
-    try{
-        const save = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-        return Array.isArray(save) ? save : [];
-    } catch{
-        return[];
-    }
+function loadfavorite() {
+  try {
+    const save = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return Array.isArray(save) ? save : [];
+  } catch {
+    return [];
+  }
 }
 
-function StoreFavorite(){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.favorite));
+function StoreFavorite() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.favorite));
 }
 
+function AddCard(item) {
+  const isFavorite = state.favorites.some((item) => item.id === recipes.id);
 
-function AddCard(){
-    const isFavorite = state.favorites.some(item => 
-        item.id === recipes.id);
+  return `
+        <article class="article">
+            <img src="${item.image}" alt="show image" />
 
-        return `
-        // we'll add html    
-        `
+            <div class="main-content">
+              <p class="name">${item.name}</p>
+              <p class="cuisine">${item.Cuisine}</p>
+              <p class="difficulty">${item.Difficulty}</p>
+              <p class="rate">${item.rating}</p>
+            </div>
+
+            <button class="favorite-btn">❤️</button>
+          </article>   
+        `;
 }
 
-function render (){
-    const qury = state.search.trim() .toLowerCase();
-    const sameRecipes = state.recipes.filter(recipes =>
-        `$(recipes.name)
-        $(recipes.cuisine)
-        $(recipes.diffcult)`
-        .toLowerCase() .includes(qury)
-    );
+function render() {
+  const qury = state.search.trim().toLowerCase();
+  const sameRecipes = state.recipes;
 
-    main.innerHTML = sameRecipes
-    .map(AddCard) .join("");
-    favorite.innerHTML = state.favorites
-    .filter(recipes =>
-        `${recipes.name}
+  main.innerHTML = sameRecipes.map((item) => AddCard(item)).join("");
+  favorite.innerHTML = state.favorites
+    .filter((recipes) =>
+      `${recipes.name}
         ${recipes.cuisine}
         ${recipes.difficulty}`
-        .toLowerCase() .includes(qury)
+        .toLowerCase()
+        .includes(qury),
     )
 
-    .map(AddCard) .join("")
+    .map(AddCard)
+    .join("");
 }
-
 
 async function fetchrecipes() {
-    main.textContent = "Loading Recipes";
-    try{
-        const response = await fetch(API_URL);
+  main.textContent = "Loading Recipes";
+  try {
+    const response = await fetch(API_URL);
 
-        if(!response.ok){
-            throw new Error(`requst faild ${response.status}`);
-        } 
-
-        const data = await response.json();
-        state.recipes = data.recipes;
-        render();
-    } catch (error){
-        main.textContent = `not load reciptes: ${error.messag}`;
+    if (!response.ok) {
+      throw new Error(`requst faild ${response.status}`);
     }
+
+    const data = await response.json();
+    state.recipes = data.recipes;
+    console.log(state.recipes);
+    render();
+  } catch (error) {
+    main.textContent = `not load reciptes: ${error.messag}`;
+  }
 }
-
-
-
+fetchrecipes();
