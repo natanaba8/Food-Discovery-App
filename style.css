@@ -16,4 +16,5 @@ header {
 header button{
   background-color:rgb(151, 123, 90) ;
   color: black;
+  border-radius: 5px;
 }
