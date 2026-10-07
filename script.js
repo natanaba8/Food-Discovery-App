@@ -45,8 +45,38 @@ function render (){
         `$(recipes.name)
         $(recipes.cuisine)
         $(recipes.diffcult)`
-        .toLowerCase() .include(qury)
+        .toLowerCase() .includes(qury)
     );
+
+    main.innerHTML = sameRecipes
+    .map(AddCard) .join("");
+    favorite.innerHTML = state.favorites
+    .filter(recipes =>
+        `${recipes.name}
+        ${recipes.cuisine}
+        ${recipes.difficulty}`
+        .toLowerCase() .includes(qury)
+    )
+
+    .map(AddCard) .join("")
+}
+
+
+async function fetchrecipes() {
+    main.textContent = "Loading Recipes";
+    try{
+        const response = await fetch(API_URL);
+
+        if(!response.ok){
+            throw new Error(`requst faild ${response.status}`);
+        } 
+
+        const data = await response.json();
+        state.recipes = data.recipes;
+        render();
+    } catch (error){
+        main.textContent = `not load reciptes: ${error.messag}`;
+    }
 }
 
 
