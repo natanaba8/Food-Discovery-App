@@ -8,10 +8,12 @@ const form = document.querySelector("#search-form");
 const searchInput = document.querySelector("#searchInput");
 const favoritebtn = document.querySelector("#header-button");
 
+
 const state = {
   recipes: [],
   favorites: [],
   search: "",
+  hasSearched: false,
 };
 
 function loadfavorite() {
@@ -36,8 +38,8 @@ function AddCard(item) {
 
             <div class="main-content">
               <p class="name">${item.name}</p>
-              <p class="cuisine">${item.Cuisine}</p>
-              <p class="difficulty">${item.Difficulty}</p>
+              <p class="cuisine">${item.cuisine}</p>
+              <p class="difficulty">${item.difficulty}</p>
               <p class="rate">${item.rating}</p>
             </div>
 
@@ -50,9 +52,23 @@ function render() {
   const qury = state.search.trim().toLowerCase();
   const sameRecipes = state.recipes;
 
-  main.innerHTML = sameRecipes.map((item) => AddCard(item)).join("");
-  favorite.innerHTML = state.favorites.map((fav) => AddCard(fav)).join("");
+  const filteredRecipes = state.recipes.filter((recipes)=>{
+    const searchText = [
+        recipes.name,
+        recipes.Cuisine,
+        recipes.Difficulty,
+        ...(recipes.tags || []),
+    ]
+    .join("")
+    .toLowerCase();
+    return searchText.includes(qury);
+  });
+
+  main.innerHTML = filteredRecipes.map(AddCard).join("");
+  favorite.innerHTML = state.favorites.map(AddCard).join("");
+
 }
+
 function addOrRemove(id) {
   const existingFav = state.favorites.find((fav) => fav.id === id);
   if (existingFav) {
@@ -66,10 +82,15 @@ function addOrRemove(id) {
   render();
 }
 
+searchInput.addEventListener("input", (evet) =>{
+    state.search = event.target.value;
+    render();
+})
+
 async function fetchrecipes(qurey) {
   main.textContent = "Loading ...";
   try {
-    const response = await fetch(`${API_URL}/search?q=${qurey}`);
+    const response = await fetch(API_URL);
 
     if (!response.ok) {
       throw new Error(`requst faild ${response.status}`);
@@ -77,16 +98,44 @@ async function fetchrecipes(qurey) {
 
     const data = await response.json();
     state.recipes = data.recipes;
-    console.log(state.recipes);
+    // console.log(state.recipes);
+    state.favorites = loadfavorite();
     render();
   } catch (error) {
     main.textContent = `not load reciptes: ${error.messag}`;
   }
 }
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log(state.recipes);
-  const sTerm = state.recipes.map((item) => item.tags);
-  
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const query = searchInput.value.trim();
+
+  if (!query) {
+    main.innerHTML = "<p>Enter Search</p>";
+    return;
+  }
+
+  main.textContent = "Searching...";
+
+  try {
+    const response = await fetch(
+      `${API_URL}/search?q=${encodeURIComponent(query)}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    state.recipes = data.recipes;
+    state.search = query;
+    state.hasSearched = true;
+    render();
+  } catch (error) {
+    main.textContent = `Could not search recipes: ${error.message}`;
+  }
 });
+
+
 fetchrecipes("");
