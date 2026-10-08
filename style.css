@@ -1,26 +1,14 @@
-
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-
-/* =========================
-   BODY
-========================= */
-
 body {
   font-family: "Times New Roman", Times, serif;
   background-color: rgba(219, 208, 229, 0.84);
   color: #222;
 }
-
-
-/* =========================
-   HEADER
-========================= */
 
 header {
   display: flex;
@@ -39,7 +27,6 @@ header {
 header h2 {
   font-size: 22px;
 }
-
 
 #header-button {
   background-color: rgb(151, 123, 90);
@@ -65,20 +52,10 @@ header h2 {
   transform: translateY(-2px);
 }
 
-
-/* =========================
-   MAIN
-========================= */
-
 main {
   width: 100%;
   padding: 20px;
 }
-
-
-/* =========================
-   SEARCH FORM
-========================= */
 
 form {
   display: flex;
@@ -97,7 +74,6 @@ form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-
 input {
   width: 100%;
 
@@ -110,7 +86,6 @@ input {
 
   font-size: 16px;
 }
-
 
 form button {
   background-color: blue;
@@ -130,15 +105,9 @@ form button {
   transition: 0.2s ease;
 }
 
-
 form button:hover {
   background-color: #1d4ed8;
 }
-
-
-/* =========================
-   MESSAGE
-========================= */
 
 #message {
   text-align: center;
@@ -150,11 +119,6 @@ form button:hover {
   font-weight: 600;
 }
 
-
-/* =========================
-   MAIN + FAVORITE CONTAINER
-========================= */
-
 .content-container {
   display: grid;
 
@@ -165,17 +129,9 @@ form button:hover {
   align-items: start;
 }
 
-
-/* =========================
-   SECTIONS
-========================= */
-
 .content-container > section {
   width: 100%;
 }
-
-
-/* Same heading style */
 
 .content-container > section > h2 {
   font-size: 22px;
@@ -191,11 +147,6 @@ form button:hover {
   border-bottom: 2px solid rgba(23, 5, 48, 0.25);
 }
 
-
-/* =========================
-   RECIPE GRID
-========================= */
-
 .grid {
   display: grid;
 
@@ -205,11 +156,6 @@ form button:hover {
 
   margin-top: 10px;
 }
-
-
-/* =========================
-   RECIPE CARD
-========================= */
 
 .article {
   position: relative;
@@ -227,17 +173,11 @@ form button:hover {
   transition: 0.2s ease;
 }
 
-
 .article:hover {
   transform: translateY(-3px);
 
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
-
-
-/* =========================
-   IMAGE
-========================= */
 
 .article img {
   display: block;
@@ -253,20 +193,13 @@ form button:hover {
   background-color: #e5e7eb;
 }
 
-
-/* =========================
-   CARD CONTENT
-========================= */
-
 .main-content {
   padding: 12px 55px 5px 4px;
 }
 
-
 .main-content p {
   margin: 5px 0;
 }
-
 
 .main-content .name {
   font-size: 20px;
@@ -276,20 +209,17 @@ form button:hover {
   color: #222;
 }
 
-
 .main-content .cuisine {
   font-size: 14px;
 
   color: #666;
 }
 
-
 .main-content .difficulty {
   font-size: 14px;
 
   color: #666;
 }
-
 
 .main-content .rate {
   font-size: 14px;
@@ -298,11 +228,6 @@ form button:hover {
 
   font-weight: 600;
 }
-
-
-/* =========================
-   FAVORITE BUTTON
-========================= */
 
 .favorite-btn {
   position: absolute;
@@ -336,38 +261,19 @@ form button:hover {
   transition: 0.2s ease;
 }
 
-
 .favorite-btn:hover {
   transform: scale(1.08);
 
   background-color: #1d4ed8;
 }
 
-
-/* =========================
-   TABLET
-========================= */
-
 @media (min-width: 560px) {
-
-  /*
-    Two cards per row
-    before desktop
-  */
-
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
 }
 
-
-/* =========================
-   DESKTOP
-========================= */
-
 @media (min-width: 900px) {
-
   main {
     max-width: 1500px;
 
@@ -376,19 +282,9 @@ form button:hover {
     padding: 30px;
   }
 
-
-  /* Search */
-
   form {
     width: 55%;
   }
-
-
-  /*
-    TWO MAIN COLUMNS
-
-    Main Recipes | Favorites
-  */
 
   .content-container {
     grid-template-columns: 3fr 1fr;
@@ -396,41 +292,19 @@ form button:hover {
     gap: 30px;
   }
 
-
-  /*
-    MAIN RECIPES
-
-    3 cards per row
-  */
-
   .content-container > section:first-child .grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-
-  /*
-    FAVORITES
-
-    1 card per row
-  */
-
   .content-container > section:last-child .grid {
     grid-template-columns: 1fr;
   }
-
 }
 
-
-/* =========================
-   LARGE DESKTOP
-========================= */
-
 @media (min-width: 1200px) {
-
   main {
     padding: 35px;
   }
-
 
   .content-container {
     grid-template-columns: 3fr 1fr;
@@ -438,21 +312,11 @@ form button:hover {
     gap: 35px;
   }
 
-
-  /*
-    MAIN = 3 COLUMNS
-  */
-
   .content-container > section:first-child .grid {
     grid-template-columns: repeat(3, 1fr);
 
     gap: 18px;
   }
-
-
-  /*
-    FAVORITE = 1 COLUMN
-  */
 
   .content-container > section:last-child .grid {
     grid-template-columns: 1fr;
@@ -460,29 +324,19 @@ form button:hover {
     gap: 18px;
   }
 
-
   .article img {
     height: 190px;
   }
-
 }
 
-
-/* =========================
-   VERY LARGE DESKTOP
-========================= */
-
 @media (min-width: 1500px) {
-
   .content-container {
     grid-template-columns: 3fr 1fr;
 
     gap: 40px;
   }
 
-
   .article img {
     height: 200px;
   }
-
 }
