@@ -3,58 +3,79 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Food Discovery App</title>
+
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <header>
       <h2>Food Discovery App</h2>
-      <button id="header-button">❤️Favorite</button>
+
+      <button id="header-button">❤️ Favorite</button>
     </header>
 
     <main>
       <form id="search-form">
-        <input type="text" id="searchInput" placeholder="search..." />
+        <input type="text" id="searchInput" placeholder="Search recipes..." />
+
         <button type="submit">Search</button>
       </form>
+
       <p id="message"></p>
-      <section>
-        <h2>Main Data</h2>
 
-        <div class="grid" id="main">
-          <article class="article">
-            <img src="" alt="show image" />
+      <div class="content-container">
+        <section>
+          <h2>Main Data</h2>
 
-            <div class="main-content">
-              <p class="name">Name</p>
-              <p class="cuisine">Cuisine</p>
-              <p class="difficulty">Difficulty</p>
-              <p class="rate">Rate</p>
-            </div>
+          <div class="grid" id="main">
+            <!-- Recipe cards will be created by JavaScript -->
 
-            <button class="favorite-btn">❤️</button>
-          </article>
-        </div>
-      </section>
-      <section>
-        <h2>Favorite</h2>
+            <article class="article">
+              <img src="" alt="show image" />
 
-        <div class="grid" id="favorite">
-          <article class="article">
-            <img src="" alt="show image" />
+              <div class="main-content">
+                <p class="name">Name</p>
 
-            <div class="main-content">
-              <p class="name">Name</p>
-              <p class="cuisine">Cuisine</p>
-              <p class="difficulty">Difficulty</p>
-              <p class="rate">Rate</p>
-            </div>
+                <p class="cuisine">Cuisine</p>
 
-            <button class="favorite-btn">❤️</button>
-          </article>
-        </div>
-      </section>
+                <p class="difficulty">Difficulty</p>
+
+                <p class="rate">Rate</p>
+              </div>
+
+              <button class="favorite-btn">❤️</button>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <h2>Favorite</h2>
+
+          <div class="grid" id="favorite">
+            <!-- Favorite cards will be created by JavaScript -->
+
+            <article class="article">
+              <img src="" alt="show image" />
+
+              <div class="main-content">
+                <p class="name">Name</p>
+
+                <p class="cuisine">Cuisine</p>
+
+                <p class="difficulty">Difficulty</p>
+
+                <p class="rate">Rate</p>
+              </div>
+
+              <button class="favorite-btn">❤️</button>
+            </article>
+          </div>
+        </section>
+      </div>
     </main>
+
     <script src="script.js"></script>
   </body>
 </html>
