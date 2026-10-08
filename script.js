@@ -67,22 +67,7 @@ function addCard(item) {
 }
 
 function render() {
-  const query = state.search.trim().toLowerCase();
-
-  const filteredRecipes = state.recipes.filter((recipe) => {
-    const searchText = [
-      recipe.name,
-      recipe.cuisine,
-      recipe.difficulty,
-      ...(recipe.tags || []),
-    ]
-      .join(" ")
-      .toLowerCase();
-
-    return searchText.includes(query);
-  });
-
-  main.innerHTML = filteredRecipes.map(addCard).join("");
+  main.innerHTML = state.recipes.map(addCard).join("");
 
   favorite.innerHTML = state.favorites.map(addCard).join("");
 
@@ -125,7 +110,7 @@ async function fetchRecipes(query = "") {
 
     const data = await response.json();
 
-    state.recipes = data.recipes;
+    state.recipes = data.recipes.map((recipe) => recipe);
 
     render();
   } catch (error) {
@@ -136,19 +121,31 @@ async function fetchRecipes(query = "") {
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const query = searchInput.value.trim();
+  const query = searchInput.value.trim().toLowerCase();
 
   if (!query) {
     message.textContent = "Enter a search query.";
+    return;
+  }
 
+  const matchingRecipe = state.recipes.find((recipe) =>
+    recipe.tags.some((tag) => tag.toLowerCase().includes(query)),
+  );
+
+  if (!matchingRecipe) {
+    message.textContent = "Please enter a correct search tag.";
     return;
   }
 
   message.textContent = "";
 
-  state.search = query;
+  const matchingTag = matchingRecipe.tags.find((tag) =>
+    tag.toLowerCase().includes(query),
+  );
 
-  await fetchRecipes(query);
+  state.search = matchingTag;
+
+  await fetchRecipes(matchingTag);
 });
 
 async function init() {
